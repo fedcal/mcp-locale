@@ -13,5 +13,6 @@ Questa cartella raccoglie la documentazione del progetto e una panoramica teoric
 - `mcp-composizione.md`: strategie per far cooperare piu' server MCP (orchestrazione client, router, servizi condivisi).
 - `eventi-mcp.md`: guida al server MCP per eventi tra amici (preferenze alimentari, suggerimenti, split spese).
 - `llm-ollama.md`: linee guida per usare Ollama e scegliere il modello LLM piu' adatto per ogni MCP.
+- `tools/`: schede rapide per ciascun MCP/tool (es. weather, eventi-amici).
 
 Aggiorna questi file man mano che evolvono il server Java, il client o eventuali estensioni.
