@@ -1,6 +1,8 @@
-# Server Python (MCP) – weather
+# Server Python (MCP) – weather ed eventi-amici
 
-Server MCP scritto in Python che espone strumenti meteo basati sull'API pubblica `api.weather.gov`. Il codice è stato rifattorizzato in layer chiari (client HTTP, service, formattazione, server MCP) per essere usato sia da Codex sia da Claude.
+Server MCP scritti in Python:
+- `weather`: strumenti meteo basati su `api.weather.gov`.
+- `eventi` (eventi-amici): pianificazione eventi sociali, preferenze alimentari, suggerimenti ristoranti e split spese.
 
 ## Setup rapido
 ```bash
@@ -27,14 +29,18 @@ Con venv attivo:
 python main.py                          # usa trasporto MCP_TRANSPORT o stdio
 # oppure
 python -m weather.main                  # entry point nel package
+# eventi-amici
+python mcpServer/serverPython/eventi_main.py   # trasporto MCP_TRANSPORT o stdio
 ```
 
 ## Struttura dei tool esposti
 - `weather/get_alerts(state)`: allerte meteo attive per uno stato USA.
 - `weather/get_forecast(latitude, longitude, periods=None)`: forecast puntuale per coordinate; `periods` opzionale per limitare l'output.
+- `eventi/create_event`, `eventi/add_participant`, `eventi/update_preferences`, `eventi/event_summary`, `eventi/suggest_restaurants`, `eventi/split_bill`.
 
 ## Note operative
 - L'istanza MCP è esportata da `weather/__init__.py` come `mcp` e vive in `weather/server.py`.
 - L'API client è in `weather/client.py`; la logica di business in `weather/service.py`; la formattazione in `weather/formatters.py`.
 - Tutte le richieste usano header `User-Agent` configurabile e seguono redirect; gli errori vengono restituiti in forma leggibile al modello.
 - Il logging configurato in `main.py` scrive su STDERR per non interferire con il trasporto MCP (STDOUT).
+- L'MCP eventi usa dati in-memory e suggerimenti ristoranti statici; l'istanza è in `eventi/server.py`, entry `eventi_main.py`.

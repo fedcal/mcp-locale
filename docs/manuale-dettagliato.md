@@ -63,6 +63,9 @@ codex mcp add weather-python -- ./mcpServer/serverPython/.venv/bin/python ./mcpS
 # Java (dopo il package)
 codex mcp add weather-java -- java -jar ./mcpServer/serverJava/target/demojava-0.0.1-SNAPSHOT.jar --env WEATHER_MCP_STDIO_ENABLED=true
 
+# Eventi-amici (Python)
+codex mcp add eventi-amici -- ./mcpServer/serverPython/.venv/bin/python ./mcpServer/serverPython/eventi_main.py --env PYTHONUNBUFFERED=1 --env MCP_TRANSPORT=stdio
+
 codex mcp list         # verifica
 codex chat             # usa i tool MCP
 codex mcp remove ...   # cleanup
@@ -83,6 +86,12 @@ Inserisci nel file JSON MCP di Claude (path variabile per OS):
     "command": "java",
     "args": ["-jar", "/abs/percorso/repo/mcpServer/serverJava/target/demojava-0.0.1-SNAPSHOT.jar"],
     "env": { "WEATHER_MCP_STDIO_ENABLED": "true" }
+  },
+  "eventi-amici": {
+    "transport": "stdio",
+    "command": "/abs/percorso/repo/mcpServer/serverPython/.venv/bin/python",
+    "args": ["/abs/percorso/repo/mcpServer/serverPython/eventi_main.py"],
+    "env": { "PYTHONUNBUFFERED": "1", "MCP_TRANSPORT": "stdio" }
   }
 }
 ```

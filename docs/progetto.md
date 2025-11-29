@@ -1,11 +1,11 @@
 # Documentazione di progetto
 
 ## Perimetro
-Repository dedicato alla sperimentazione del Model Context Protocol con un server Java (Spring Boot 4, Java 21), un server MCP Python (FastMCP) e un client in cartella dedicata.
+Repository dedicato alla sperimentazione del Model Context Protocol con un server Java (Spring Boot 4, Java 21), server MCP Python (FastMCP) e un client in cartella dedicata.
 
 ## Struttura della repository
 - `mcpServer/serverJava`: applicazione Spring Boot con sorgenti in `src/main/java/com/server`, bridge MCP stdio in `mcp/McpStdIoRunner`, test in `src/test/java`. Entry point: `DemojavaApplication.java`.
-- `mcpServer/serverPython`: server MCP meteo con pacchetto `weather` (client/service/formatter/server); requirements in `requirements.txt`, entrypoint `main.py`.
+- `mcpServer/serverPython`: server MCP in Python (FastMCP); include `weather` (API meteo) ed `eventi` (eventi tra amici) con i rispettivi entrypoint (`main.py` e `eventi_main.py`).
 - `mcpClient`: area riservata al client MCP; mantenere le dipendenze specifiche del linguaggio all'interno di questa cartella.
 - `docs`: documentazione (indice in `docs/README.md`).
 
