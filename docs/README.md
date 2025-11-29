@@ -10,5 +10,6 @@ Questa cartella raccoglie la documentazione del progetto e una panoramica teoric
 - `idee-mcp.md`: catalogo di server MCP futuri divisi per categoria (vita quotidiana, sviluppo).
 - `idee-mcp-tracker.md`: tabella roadmap con stato di avanzamento e stack suggeriti per ogni MCP.
 - `boilerplate-mcp.md`: scheletro per creare nuovi server MCP (Python FastMCP, Java Spring Boot + stdio).
+- `mcp-composizione.md`: strategie per far cooperare piu' server MCP (orchestrazione client, router, servizi condivisi).
 
 Aggiorna questi file man mano che evolvono il server Java, il client o eventuali estensioni.
