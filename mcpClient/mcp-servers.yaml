@@ -19,3 +19,12 @@ servers:
     env:
       WEATHER_MCP_STDIO_ENABLED: "true"
       WEATHER_API_BASE: "https://api.weather.gov"
+
+  - id: eventi-amici
+    transport: stdio
+    command: "./mcpServer/serverPython/.venv/bin/python"
+    args:
+      - "./mcpServer/serverPython/eventi_main.py"
+    env:
+      PYTHONUNBUFFERED: "1"
+      MCP_TRANSPORT: "stdio"
