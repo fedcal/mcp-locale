@@ -2,61 +2,71 @@
 
 Catalogo di server MCP suddiviso per categoria, con funzionalita' approfondite per soluzioni "best in class". Ogni voce indica tool chiave e possibili estensioni in Java (Spring Boot + bridge MCP stdio) o Python (FastMCP).
 
-## Vita quotidiana
+## Pianificazione e produttivita'
 - **Agenda & Promemoria**  
   Tool: `list_events`, `add_event`, `reschedule`, `remind`, `import_ics`, `sync_calendar`.  
-  Funzioni: CRUD eventi/TODO, reminder multicanale (email/Telegram), import/export ICS, dedup su titolo/orario, suggerimento slot liberi, categorie e priorita'.
-- **Spese & Budget**  
-  Tool: `add_expense`, `set_budget`, `monthly_report`, `export_csv`, `ocr_receipt`.  
-  Funzioni: categorizzazione automatica (ruleset), limiti per categoria, alert superamento, grafici sintetici, OCR scontrini locale/facoltativo, trend mensili.
-- **Lista spesa & Pantry**  
-  Tool: `list_items`, `add_item`, `consume_item`, `suggest_recipes`, `share_list`.  
-  Funzioni: scorte con quantita'/scadenza, ricette da ingredienti disponibili, lista condivisa (CSV/Sheets), varianti per dieta/allergie, alert scadenze.
-- **Trasporti & Traffico**  
-  Tool: `commute_eta`, `list_transit`, `traffic_snapshot`, `save_route`.  
-  Funzioni: ETA multimodale (auto/mezzi), orari live, tragitti frequenti con avvisi ritardo, fallback offline (ultimo ETA noto), preferenze percorso (costo/tempo).
-- **Meteo esteso**  
-  Tool: `get_alerts`, `get_forecast`, `subscribe_alerts`, `uv_index`.  
-  Funzioni: forecast multi-provider, alert pioggia/vento/UV personalizzati, limiti output via `periods`, unita' metriche/imperiali, riepilogo per viaggi.
-- **Casa & Manutenzione**  
-  Tool: `list_maintenance`, `add_task`, `due_soon`, `log_intervention`, `season_checklist`.  
-  Funzioni: scadenze caldaia/auto, checklist stagionali, storico interventi con costi, priorita' e stima durata, deleghe familiari.
-- **Salute & Benessere**  
-  Tool: `log_metric`, `summary`, `medication_reminder`, `hydrate`.  
-  Funzioni: ingest da wearable API, promemoria farmaci con fasce orarie, alert carenze (acqua/passi/sonno), export CSV per medico, target personalizzati.
-- **Ricette & Meal Planning**  
-  Tool: `plan_week`, `shopping_list`, `swap_ingredient`, `portion_adjust`.  
-  Funzioni: planner settimanale, lista ingredienti aggregata, sostituzioni (allergeni/diete), stima calorie/porzioni, menu per budget o tempo disponibile.
+  Funzioni: CRUD eventi/TODO, reminder multicanale (email/Telegram), import/export ICS, dedup, suggerimento slot liberi, categorie e priorita'.
 - **Email & Notifiche smart**  
   Tool: `summarize_inbox`, `apply_rules`, `snooze`, `daily_digest`.  
   Funzioni: filtri per pattern (bollette/pacchi), riassunto giornaliero, snooze thread, link diretti ai messaggi, regole personalizzabili.
 - **Note & Snippet**  
   Tool: `add_note`, `search_notes`, `list_tags`, `pin_note`.  
   Funzioni: tagging, full-text search, snippet codice/link, pin/archivia, export markdown/JSON, note collegate.
-- **Domotica (bridge)**  
-  Tool: `toggle_device`, `set_scene`, `sensor_snapshot`, `schedule_action`.  
-  Funzioni: integrazione Home Assistant/MQTT, scene predefinite, snapshot sensori, automazioni orarie o alba/tramonto, gruppi dispositivi.
-- **Documenti & Scadenze**  
-  Tool: `add_document`, `extract_dates`, `upcoming_deadlines`, `renewal_reminder`.  
-  Funzioni: parsing PDF/OCR locale, reminder bollo/assicurazione, classificazione documenti, allegati con checksum, storico rinnovi.
-- **Valute & Tassi**  
-  Tool: `convert`, `rate_alert`, `history`.  
-  Funzioni: tassi live e storici brevi, alert soglia, formati multipli (JSON/CSV), rounding banca centrale, preferenze valuta base.
-- **Pacchi & Tracking**  
-  Tool: `track_package`, `carrier_status`, `delivery_eta`.  
-  Funzioni: corrieri multipli, timeline eventi, ETA stimato, alert consegna/fallita, alias pacchi, export tracking.
 - **Pulizie & Routine**  
   Tool: `assign_task`, `status`, `next_tasks`, `rotate_roles`.  
   Funzioni: turni casa/ufficio, cicli settimanali, dashboard fatti/da fare, rotazione ruoli automatica, punteggio completion.
-- **Password check locale**  
-  Tool: `check_password`, `generate_password`, `reuse_scan`.  
-  Funzioni: entropia e blacklist locale, generatore conforme a policy, scansione riuso in note locali (no cloud), report rischi.
+
+## Economia e finanze
+- **Spese & Budget**  
+  Tool: `add_expense`, `set_budget`, `monthly_report`, `export_csv`, `ocr_receipt`.  
+  Funzioni: categorizzazione automatica, limiti per categoria, alert superamento, grafici sintetici, OCR scontrini, trend mensili.
+- **Valute & Tassi**  
+  Tool: `convert`, `rate_alert`, `history`.  
+  Funzioni: tassi live/storici, alert soglia, formati multipli (JSON/CSV), rounding banca centrale, preferenze valuta base.
+
+## Salute e benessere
+- **Salute & Benessere**  
+  Tool: `log_metric`, `summary`, `medication_reminder`, `hydrate`.  
+  Funzioni: ingest da wearable API, promemoria farmaci, alert carenze (acqua/passi/sonno), export CSV per medico, target personalizzati.
+
+## Studio e apprendimento
+- **Studio planner & flashcard**  
+  Tool: `plan_study`, `add_flashcard`, `review_session`, `quiz`.  
+  Funzioni: pianificazione studio per esami/moduli, spaced repetition, quiz generati da appunti, tracking progresso, export/import deck (CSV/Anki).
+- **Document summarizer accademico**  
+  Tool: `summarize_paper`, `extract_refs`, `outline`.  
+  Funzioni: riassunto PDF/URL, estrazione riferimenti bibliografici, outline capitoli, glossario termini chiave (solo contenuti locali o pubblici).
+
+## Casa e logistica
+- **Lista spesa & Pantry**  
+  Tool: `list_items`, `add_item`, `consume_item`, `suggest_recipes`, `share_list`.  
+  Funzioni: scorte con quantita'/scadenza, ricette da ingredienti, lista condivisa, varianti dieta/allergie, alert scadenze.
+- **Domotica (bridge)**  
+  Tool: `toggle_device`, `set_scene`, `sensor_snapshot`, `schedule_action`.  
+  Funzioni: integrazione Home Assistant/MQTT, scene, snapshot sensori, automazioni orarie o alba/tramonto, gruppi dispositivi.
+- **Documenti & Scadenze**  
+  Tool: `add_document`, `extract_dates`, `upcoming_deadlines`, `renewal_reminder`.  
+  Funzioni: parsing PDF/OCR locale, reminder bollo/assicurazione, classificazione documenti, checksum allegati, storico rinnovi.
+- **Pacchi & Tracking**  
+  Tool: `track_package`, `carrier_status`, `delivery_eta`.  
+  Funzioni: corrieri multipli, timeline eventi, ETA, alert consegna/fallita, alias pacchi, export tracking.
+- **Trasporti & Traffico**  
+  Tool: `commute_eta`, `list_transit`, `traffic_snapshot`, `save_route`.  
+  Funzioni: ETA multimodale, orari live, tragitti frequenti, avvisi ritardo, preferenze costo/tempo, fallback offline.
 - **Viaggi brevi**  
   Tool: `plan_trip`, `packing_list`, `poi_suggestions`, `cost_estimate`.  
-  Funzioni: itinerari 2-5 giorni, meteo destinazione, lista bagagli per attivita', budget stimato (trasporti/alloggi), checklist documenti.
-- **Scuola/Famiglia**  
-  Tool: `daily_schedule`, `homework`, `notify_guardian`, `attendance_log`.  
-  Funzioni: orari lezioni/attivita', compiti con scadenza, notifiche ai genitori, registro presenze, firme digitali.
+  Funzioni: itinerari 2-5 giorni, meteo destinazione, lista bagagli per attivita', budget stimato, checklist documenti.
+- **Meteo esteso**  
+  Tool: `get_alerts`, `get_forecast`, `subscribe_alerts`, `uv_index`.  
+  Funzioni: forecast multi-provider, alert pioggia/vento/UV personalizzati, limiti output, unita' metriche/imperiali, riepilogo viaggi.
+- **Casa & Manutenzione**  
+  Tool: `list_maintenance`, `add_task`, `due_soon`, `log_intervention`, `season_checklist`.  
+  Funzioni: scadenze caldaia/auto, checklist stagionali, storico interventi, priorita'/stima, deleghe familiari.
+
+## Sicurezza personale
+- **Password check locale**  
+  Tool: `check_password`, `generate_password`, `reuse_scan`.  
+  Funzioni: entropia e blacklist locale, generatore conforme a policy, scansione riuso in note locali, report rischi.
 
 ## Sviluppo software
 - **Repo & Git assistant**  
