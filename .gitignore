@@ -33,3 +33,7 @@ build/
 .vscode
 .mvn
 .env
+.venv
+**/.venv/
+__pycache__
+__init____.py
