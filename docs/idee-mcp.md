@@ -56,6 +56,9 @@ Catalogo di server MCP suddiviso per categoria, con funzionalita' approfondite p
 - **Viaggi brevi**  
   Tool: `plan_trip`, `packing_list`, `poi_suggestions`, `cost_estimate`.  
   Funzioni: itinerari 2-5 giorni, meteo destinazione, lista bagagli per attivita', budget stimato, checklist documenti.
+- **Eventi tra amici (food & split)**  
+  Tool: `create_event`, `add_participant`, `set_preferences` (intolleranze/allergie/preferenze prezzo), `suggest_restaurants`, `split_bill`.  
+  Funzioni: profili partecipanti con intolleranze/allergie/preferenze, suggerimenti ristoranti compatibili, note prenotazione (orario/indirizzo), ripartizione spese (equo o per piatto), saldo debiti/crediti e export riepilogo.
 - **Meteo esteso**  
   Tool: `get_alerts`, `get_forecast`, `subscribe_alerts`, `uv_index`.  
   Funzioni: forecast multi-provider, alert pioggia/vento/UV personalizzati, limiti output, unita' metriche/imperiali, riepilogo viaggi.
