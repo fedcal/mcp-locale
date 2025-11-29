@@ -32,14 +32,32 @@ Il Model Context Protocol è uno standard aperto per mettere in comunicazione un
 - Gestire gli errori con codici e messaggi chiari; gli errori prevedibili dovrebbero aiutare il client a correggere i parametri o a ritentare.
 - Tenere separata la configurazione sensibile (token, URL interni) tramite variabili d'ambiente o secret manager, mai hardcoded nei prompt o nel codice.
 
+## Pattern architetturali
+- **Single-tenant MCP**: un processo per dominio (es. meteo, eventi) con tool mirati; semplice da deployare e da limitare.
+- **MCP router/aggregatore**: un MCP che inoltra chiamate ad altri MCP (via stdio o REST interno) e aggrega le risposte; utile per risposte composte (es. evento + meteo + spesa).
+- **Risorse/Prompt**: oltre ai tool, un MCP può esporre risorse statiche o dinamiche (file, query) e prompt riusabili; aiuta a standardizzare risposte e ridurre prompt injection.
+- **Backpressure e limiti**: definire timeouts, `limit`/paginazione e massimi di dimensione per evitare risposte ingestibili al modello.
+- **Logging/STDOUT**: STDOUT va riservato al protocollo; log e diagnostica sempre su STDERR o su file separati.
+
+## JSON-RPC e schemi
+- **Schema input**: ogni tool deve avere `type`, `properties`, `required`; usare `enum`, `minimum/maximum`, `pattern` per guidare il modello.
+- **Errori**: usare codici standard (`-32601` metodo non supportato; `-32602` parametri non validi) o errori personalizzati `-32000` con messaggi chiari.
+- **Content**: le risposte spesso sono `content` di tipo `text`; si possono restituire più segmenti (text, markdown, data) secondo le specifiche MCP.
+
+## Sicurezza e robustezza
+- Validare input lato server (oltre allo schema) per prevenire costi eccessivi o dati fuori dominio.
+- Evitare chiamate esterne nei test; usare mock/stub per servizi upstream.
+- Non serializzare segreti nei log; separare configurazioni in env/secret manager.
+- Considerare rate limiting o circuit breaker se il server contatta terze parti.
+
+## LLM e comportamento del client
+- Il client (Codex/Claude) decide quando usare i tool in base a descrizioni e schemi; descrizioni brevi e chiare aiutano.
+- Temperature basse migliorano l'aderenza al formato richiesto; esempi nel prompt utente guidano il modello a scegliere il tool giusto.
+- Backend LLM (es. Ollama) è intercambiabile: il contratto MCP (schema/semantica) resta costante.
+
 ## Collegamento con questo repository
-- Server Java (`mcpServer/serverJava`): Web API + bridge MCP stdio che implementa un sottoinsieme di JSON-RPC (`initialize`, `tools/list`, `tools/call`, `ping`), con log su `stderr` per non contaminare il canale di protocollo.
-- Server Python (`mcpServer/serverPython`): usa `FastMCP` per gestire handshake/capabilities e registrare tool asincroni.
-- `mcpClient`: config esempi per Codex/Claude che puntano a entrambi i server via trasporto `stdio`.
+- Server Java (`mcpServer/serverJava`): Web API + bridge MCP stdio (`initialize`, `tools/list`, `tools/call`, `ping`), log su `stderr`.
+- Server Python (`mcpServer/serverPython`): FastMCP per tool asincroni; include `weather` e `eventi-amici`.
+- `mcpClient`: config per Codex/Claude via trasporto `stdio`; modelli LLM configurabili (vedi `llm-ollama.md`).
 
-## Note sul trasporto stdio
-- Molti client MCP parlano NDJSON su STDIN/STDOUT; alcuni inviano header `Content-Length`. Il bridge Java gestisce entrambi.
-- Qualsiasi log su STDOUT rompe il framing JSON-RPC: per questo logback è configurato su STDERR e il banner Spring è disattivato.
-- I tool restituiscono `content` testuale; eventuali risorse/prompts non implementati restituiscono errore `-32601` (metodo non supportato).
-
-Per ulteriori approfondimenti e aggiornamenti del protocollo è consigliato consultare la documentazione ufficiale su modelcontextprotocol.io.
+Per approfondire il protocollo: documentazione ufficiale su modelcontextprotocol.io.
