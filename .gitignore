@@ -37,3 +37,5 @@ build/
 **/.venv/
 __pycache__
 __init____.py
+*.env
+*.env.*
