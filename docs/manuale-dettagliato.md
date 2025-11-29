@@ -66,6 +66,9 @@ codex mcp add weather-java -- java -jar ./mcpServer/serverJava/target/demojava-0
 # Eventi-amici (Python)
 codex mcp add eventi-amici -- ./mcpServer/serverPython/.venv/bin/python ./mcpServer/serverPython/eventi_main.py --env PYTHONUNBUFFERED=1 --env MCP_TRANSPORT=stdio
 
+# Client con Ollama (scegli modello adeguato)
+codex chat --model ollama::phi4   # es. meteo / spese leggere
+
 codex mcp list         # verifica
 codex chat             # usa i tool MCP
 codex mcp remove ...   # cleanup
@@ -96,6 +99,12 @@ Inserisci nel file JSON MCP di Claude (path variabile per OS):
 }
 ```
 Riavvia Claude dopo la modifica.
+
+## Scelta LLM con Ollama
+- Meteo: `ollama::phi4`, `ollama::llama3.1:8b` (risposte concise).
+- Eventi-amici: `ollama::llama3.1:8b`, `ollama::mistral-nemo` (ragionamento su liste/split).
+- Dev/Code (futuri MCP): `ollama::qwen2.5-coder:14b`, `ollama::deepseek-coder:6.7b`.
+Imposta il modello in `codex chat --model ollama::<nome>` o con la variabile di default del client; usa temperature basse (0.2–0.4) per aderire ai formati MCP.
 
 ## Riferimento tool MCP
 - `weather/get_alerts`

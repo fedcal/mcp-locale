@@ -12,5 +12,6 @@ Questa cartella raccoglie la documentazione del progetto e una panoramica teoric
 - `boilerplate-mcp.md`: scheletro per creare nuovi server MCP (Python FastMCP, Java Spring Boot + stdio).
 - `mcp-composizione.md`: strategie per far cooperare piu' server MCP (orchestrazione client, router, servizi condivisi).
 - `eventi-mcp.md`: guida al server MCP per eventi tra amici (preferenze alimentari, suggerimenti, split spese).
+- `llm-ollama.md`: linee guida per usare Ollama e scegliere il modello LLM piu' adatto per ogni MCP.
 
 Aggiorna questi file man mano che evolvono il server Java, il client o eventuali estensioni.
