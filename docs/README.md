@@ -5,7 +5,7 @@ Questa cartella raccoglie la documentazione del progetto e una panoramica teoric
 - `progetto.md`: istruzioni operative, struttura della repo e convenzioni di sviluppo.
 - `teoria-mcp.md`: concetti chiave del protocollo MCP, lessico e flussi di alto livello.
 - `weather-mcp.md`: setup del server weather (Python e Java) e collegamento a client (Codex CLI, Claude).
-- `architettura-weather.md`: dettagli di implementazione per entrambi gli stack meteo.
+- `architettura-sistema.md`: architettura generale dei server MCP (Python/Java), pattern stdio/JSON-RPC.
 - `manuale-dettagliato.md`: guida operativa completa (setup, registrazione client, troubleshooting).
 - `idee-mcp.md`: catalogo di server MCP futuri divisi per categoria (vita quotidiana, sviluppo).
 - `idee-mcp-tracker.md`: tabella roadmap con stato di avanzamento e stack suggeriti per ogni MCP.
