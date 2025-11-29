@@ -1,0 +1,21 @@
+# MCP servers configuration for Codex/Claude
+# Ricorda di costruire il jar Java con `./mvnw -q -DskipTests package` prima di usarlo via stdio.
+servers:
+  - id: weather-python
+    transport: stdio
+    command: "./mcpServer/serverPython/.venv/bin/python"
+    args:
+      - "./mcpServer/serverPython/main.py"
+    env:
+      PYTHONUNBUFFERED: "1"
+      MCP_TRANSPORT: "stdio"
+
+  - id: weather-java
+    transport: stdio
+    command: "java"
+    args:
+      - "-jar"
+      - "./mcpServer/serverJava/target/demojava-0.0.1-SNAPSHOT.jar"
+    env:
+      WEATHER_MCP_STDIO_ENABLED: "true"
+      WEATHER_API_BASE: "https://api.weather.gov"

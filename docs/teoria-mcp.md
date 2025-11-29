@@ -33,8 +33,13 @@ Il Model Context Protocol è uno standard aperto per mettere in comunicazione un
 - Tenere separata la configurazione sensibile (token, URL interni) tramite variabili d'ambiente o secret manager, mai hardcoded nei prompt o nel codice.
 
 ## Collegamento con questo repository
-- Il server Java in `mcpServer/serverJava` può esporre tool e risorse per attività quotidiane o automazione di eventi; la documentazione sopra fornisce il lessico comune per descriverli.
-- La cartella `mcpClient` potrà implementare la parte client che esegue handshake, discovery e orchestrazione delle chiamate verso il server.
-- Quando verrà aggiunto il server Python (`mcpServer/serverPython`), potrà riusare gli stessi concetti con librerie e convenzioni PEP 8.
+- Server Java (`mcpServer/serverJava`): Web API + bridge MCP stdio che implementa un sottoinsieme di JSON-RPC (`initialize`, `tools/list`, `tools/call`, `ping`), con log su `stderr` per non contaminare il canale di protocollo.
+- Server Python (`mcpServer/serverPython`): usa `FastMCP` per gestire handshake/capabilities e registrare tool asincroni.
+- `mcpClient`: config esempi per Codex/Claude che puntano a entrambi i server via trasporto `stdio`.
+
+## Note sul trasporto stdio
+- Molti client MCP parlano NDJSON su STDIN/STDOUT; alcuni inviano header `Content-Length`. Il bridge Java gestisce entrambi.
+- Qualsiasi log su STDOUT rompe il framing JSON-RPC: per questo logback è configurato su STDERR e il banner Spring è disattivato.
+- I tool restituiscono `content` testuale; eventuali risorse/prompts non implementati restituiscono errore `-32601` (metodo non supportato).
 
 Per ulteriori approfondimenti e aggiornamenti del protocollo è consigliato consultare la documentazione ufficiale su modelcontextprotocol.io.

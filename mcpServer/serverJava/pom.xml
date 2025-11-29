@@ -12,7 +12,7 @@
 	<artifactId>demojava</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demojava</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Weather MCP server (Spring Boot)</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -33,6 +33,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-json</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<dependency>
