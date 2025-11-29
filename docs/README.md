@@ -6,5 +6,6 @@ Questa cartella raccoglie la documentazione del progetto e una panoramica teoric
 - `teoria-mcp.md`: concetti chiave del protocollo MCP, lessico e flussi di alto livello.
 - `weather-mcp.md`: setup del server weather (Python e Java) e collegamento a client (Codex CLI, Claude).
 - `architettura-weather.md`: dettagli di implementazione per entrambi gli stack meteo.
+- `manuale-dettagliato.md`: guida operativa completa (setup, registrazione client, troubleshooting).
 
 Aggiorna questi file man mano che evolvono il server Java, il client o eventuali estensioni.
