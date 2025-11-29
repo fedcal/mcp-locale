@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import com.server.eventi.config.EventProperties;
 import com.server.weather.config.WeatherClientProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(WeatherClientProperties.class)
+@EnableConfigurationProperties({WeatherClientProperties.class, EventProperties.class})
 public class DemojavaApplication {
 
 	public static void main(String[] args) {

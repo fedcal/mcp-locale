@@ -8,6 +8,7 @@ from typing import Iterable
 from .config import EventConfig
 from .exceptions import EventNotFound, ParticipantNotFound
 from .models import Event, Participant, RestaurantSuggestion, new_event, new_participant
+from .repository import EventRepository
 
 
 class EventService:
@@ -15,17 +16,17 @@ class EventService:
 
     def __init__(self, config: EventConfig) -> None:
         self.config = config
-        self._events: dict[str, Event] = {}
+        self.repo = EventRepository(config.db_url)
 
     def create_event(self, name: str, date: str, location: str, budget: float | None, notes: str | None) -> Event:
         event = new_event(name=name, date=date, location=location, currency=self.config.default_currency, budget=budget, notes=notes)
-        self._events[event.id] = event
-        return event
+        return self.repo.save_event(event)
 
     def get_event(self, event_id: str) -> Event:
-        if event_id not in self._events:
+        event = self.repo.get_event(event_id)
+        if not event:
             raise EventNotFound(f"Evento {event_id} non trovato.")
-        return self._events[event_id]
+        return event
 
     def add_participant(
         self,
@@ -42,8 +43,7 @@ class EventService:
             preferences=list(preferences or []),
             weight=weight,
         )
-        event.participants.append(participant)
-        return participant
+        return self.repo.add_participant(event_id, participant)
 
     def update_preferences(
         self,
@@ -53,23 +53,17 @@ class EventService:
         preferences: Iterable[str] | None = None,
         weight: float | None = None,
     ) -> Participant:
-        event = self.get_event(event_id)
-        participant = next((p for p in event.participants if p.id == participant_id), None)
+        participant = self.repo.update_participant(event_id, participant_id, intolerances, preferences, weight)
         if not participant:
             raise ParticipantNotFound(f"Partecipante {participant_id} non trovato per evento {event_id}.")
-        if intolerances is not None:
-            participant.intolerances = list(intolerances)
-        if preferences is not None:
-            participant.preferences = list(preferences)
-        if weight is not None and weight > 0:
-            participant.weight = weight
         return participant
 
     def suggest_restaurants(self, event_id: str, limit: int | None = None) -> list[RestaurantSuggestion]:
         event = self.get_event(event_id)
+        participants = self.repo.list_participants(event_id)
         limit = limit or self.config.suggestion_limit
-        intolerances = {item.lower() for p in event.participants for item in p.intolerances}
-        preferences = {item.lower() for p in event.participants for item in p.preferences}
+        intolerances = {item.lower() for p in participants for item in p.intolerances}
+        preferences = {item.lower() for p in participants for item in p.preferences}
 
         suggestions = _BASE_SUGGESTIONS.get(event.location.lower(), _BASE_SUGGESTIONS.get("default", []))
         filtered: list[RestaurantSuggestion] = []
@@ -86,29 +80,31 @@ class EventService:
 
     def split_bill(self, event_id: str, total_amount: float, mode: str = "equal") -> dict[str, float]:
         event = self.get_event(event_id)
-        if not event.participants:
+        participants = self.repo.list_participants(event_id)
+        if not participants:
             raise ParticipantNotFound("Nessun partecipante registrato per questo evento.")
         if total_amount < 0:
             raise ValueError("L'importo totale deve essere non negativo.")
 
         if mode == "equal":
-            quota = round(total_amount / len(event.participants), 2)
-            return {p.name: quota for p in event.participants}
+            quota = round(total_amount / len(participants), 2)
+            return {p.name: quota for p in participants}
         if mode == "weighted":
-            total_weight = sum(p.weight for p in event.participants if p.weight > 0)
+            total_weight = sum(p.weight for p in participants if p.weight > 0)
             if total_weight == 0:
                 raise ValueError("Somma pesi pari a zero.")
             shares: dict[str, float] = {}
-            for p in event.participants:
+            for p in participants:
                 shares[p.name] = round(total_amount * (p.weight / total_weight), 2)
             return shares
         raise ValueError("Modalita' di split non supportata (usa 'equal' o 'weighted').")
 
     def event_summary(self, event_id: str) -> str:
         event = self.get_event(event_id)
+        participants = self.repo.list_participants(event_id)
         participants = "\n".join(
             f"- {p.name} (intolleranze: {', '.join(p.intolerances) or 'nessuna'}, preferenze: {', '.join(p.preferences) or 'nessuna'}, peso: {p.weight})"
-            for p in event.participants
+            for p in participants
         ) or "Nessun partecipante."
         budget_text = f"{event.budget} {event.currency}" if event.budget is not None else "n.d."
         return (

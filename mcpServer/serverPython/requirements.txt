@@ -1,2 +1,4 @@
 httpx>=0.28.1
 mcp[cli]>=1.22.0
+sqlalchemy>=2.0.30
+pymysql>=1.1.0

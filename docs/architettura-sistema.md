@@ -25,6 +25,7 @@ Panoramica sull'architettura dei server MCP in questa repo (Python FastMCP, Java
 - `controller/*` (opzionale): endpoint REST per test manuali.
 - `mcp/McpStdIoRunner`: bridge stdio JSON-RPC (`initialize`, `tools/list`, `tools/call`, `ping`).
 - `application.properties` + `logback-spring.xml`: default e logging su STDERR.
+- **Persistenza**: JPA con H2 di default (per avvio rapido), override a MySQL via `SPRING_DATASOURCE_URL` ecc.; in Python, SQLAlchemy opzionale con `EVENTS_DB_URL`.
 
 ## Flusso MCP (stdio/JSON-RPC)
 1) Il client avvia il processo MCP e comunica su STDIN/STDOUT (NDJSON/Content-Length).

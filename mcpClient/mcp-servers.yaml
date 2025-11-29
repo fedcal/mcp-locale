@@ -28,3 +28,16 @@ servers:
     env:
       PYTHONUNBUFFERED: "1"
       MCP_TRANSPORT: "stdio"
+
+  - id: eventi-amici-java
+    transport: stdio
+    command: "java"
+    args:
+      - "-jar"
+      - "./mcpServer/serverJava/target/demojava-0.0.1-SNAPSHOT.jar"
+    env:
+      EVENTI_MCP_STDIO_ENABLED: "true"
+      # Per MySQL: sovrascrivi datasource via env (esempio)
+      # SPRING_DATASOURCE_URL: "jdbc:mysql://localhost:3306/mcp?createDatabaseIfNotExist=true&serverTimezone=UTC"
+      # SPRING_DATASOURCE_USERNAME: "mcp"
+      # SPRING_DATASOURCE_PASSWORD: "changeme"

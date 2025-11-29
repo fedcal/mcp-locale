@@ -8,6 +8,7 @@ import os
 class EventConfig:
     default_currency: str = os.getenv("EVENTS_DEFAULT_CURRENCY", "EUR")
     suggestion_limit: int = int(os.getenv("EVENTS_SUGGESTION_LIMIT", "5"))
+    db_url: str | None = os.getenv("EVENTS_DB_URL")
 
     @classmethod
     def from_env(cls) -> "EventConfig":

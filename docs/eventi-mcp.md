@@ -19,6 +19,9 @@ Variabili utili:
 - `MCP_TRANSPORT` (default `stdio`)
 - `EVENTS_DEFAULT_CURRENCY` (default `EUR`)
 - `EVENTS_SUGGESTION_LIMIT` (default `5`)
+- `EVENTS_DB_URL` (opzionale, es. `mysql+pymysql://user:pass@host:3306/mcp`)
+
+Se `EVENTS_DB_URL` non è impostata, i dati sono in-memory (reset a ogni riavvio); se è impostata su MySQL, SQLAlchemy crea automaticamente le tabelle `events` e `participants`.
 
 ## Integrazione Codex/Claude
 Config YAML già inclusa in `mcpClient/mcp-servers.yaml` con id `eventi-amici`:
@@ -30,6 +33,20 @@ Config YAML già inclusa in `mcpClient/mcp-servers.yaml` con id `eventi-amici`:
     env:
       PYTHONUNBUFFERED: "1"
       MCP_TRANSPORT: "stdio"
+```
+
+Per la versione Java (bridge stdio) dopo il `package`:
+```yaml
+  - id: eventi-amici-java
+    transport: stdio
+    command: "java"
+    args: ["-jar", "./mcpServer/serverJava/target/demojava-0.0.1-SNAPSHOT.jar"]
+    env:
+      EVENTI_MCP_STDIO_ENABLED: "true"
+      # Per MySQL:
+      # SPRING_DATASOURCE_URL: "jdbc:mysql://localhost:3306/mcp?createDatabaseIfNotExist=true&serverTimezone=UTC"
+      # SPRING_DATASOURCE_USERNAME: "mcp"
+      # SPRING_DATASOURCE_PASSWORD: "changeme"
 ```
 
 ## Note

@@ -20,6 +20,7 @@ cd mcpServer/serverPython && python -m eventi.main
 Usa `MCP_TRANSPORT` (default `stdio`) per scegliere il trasporto.
 
 ## Note
-- Dati in-memory (reset a ogni riavvio).
+- Persistenza: in-memory di default; se `EVENTS_DB_URL` e' impostata (es. `mysql+pymysql://user:pass@host:3306/mcp`), usa MySQL via SQLAlchemy (tabelle create all'avvio).
+- Dati in-memory (reset a ogni riavvio, se DB non configurato).
 - Suggerimenti ristoranti basati su lista statica filtrata per intolleranze/preferenze.
 - Split spese: `equal` (quote uguali) o `weighted` (pesi per partecipante, default 1.0).
