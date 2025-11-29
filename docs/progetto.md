@@ -6,6 +6,7 @@ Repository dedicato alla sperimentazione del Model Context Protocol con un serve
 ## Struttura della repository
 - `mcpServer/serverJava`: applicazione Spring Boot con sorgenti in `src/main/java/com/server`, bridge MCP stdio in `mcp/McpStdIoRunner`, test in `src/test/java`. Entry point: `DemojavaApplication.java`.
 - `mcpServer/serverPython`: server MCP in Python (FastMCP); include `weather` (API meteo) ed `eventi` (eventi tra amici) con i rispettivi entrypoint (`main.py` e `eventi_main.py`).
+- File env di esempio: `mcpServer/serverPython/.env.example`, `mcpServer/serverJava/.env.example` per token e puntamenti DB (MySQL opzionale).
 - `mcpClient`: area riservata al client MCP; mantenere le dipendenze specifiche del linguaggio all'interno di questa cartella.
 - `docs`: documentazione (indice in `docs/README.md`).
 
